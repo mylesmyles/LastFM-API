@@ -36,6 +36,11 @@ public final class RequestParam {
 	public String getParamString() {
 		return key + "=" + value;
 	}
+	
+	@Override
+	public String toString() {
+		return getParamString();
+	}
 
 	@Override
 	public int hashCode() {

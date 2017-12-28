@@ -18,12 +18,17 @@ class BasicLastFmRequest implements LastFmRequest {
 	}
 
 	@Override
-	public String getRequestUrl() {
+	public String getUrl() {
 		return buildUrlString();
 	}
 	
 	private String buildUrlString() {
-		return url + "?" + getParamsAsString(requestParams);
+		if(requestParams.isEmpty()) {
+			return url;
+		}
+		else {
+			return url + "?" + getParamsAsString(requestParams);
+		}
 	}
 	
 	private String getParamsAsString(List<RequestParam> params) {

@@ -56,7 +56,7 @@ public class LastFmRequestBuilder {
 		}
 		
 		OrderedParamSet combined = OrderedParamSet.combine(defaultParams, paramSet);
-		List<RequestParam> allParams = combined.asList();
+		List<RequestParam> allParams = combined.toList();
 		return BasicLastFmRequest.create(url, allParams);
 	}
 }

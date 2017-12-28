@@ -10,8 +10,8 @@ public class OrderedParamSet implements Iterable<RequestParam> {
 	private final LinkedHashMap<String, RequestParam> internalMap;
 	
 	public static OrderedParamSet combine(OrderedParamSet defaultParams, OrderedParamSet overrideParams) {
-		OrderedParamSet combinedSets = new OrderedParamSet(defaultParams.asList());
-		combinedSets.addAll(overrideParams.asList());
+		OrderedParamSet combinedSets = new OrderedParamSet(defaultParams.toList());
+		combinedSets.addAll(overrideParams.toList());
 		return combinedSets;
 	}
 	
@@ -40,7 +40,7 @@ public class OrderedParamSet implements Iterable<RequestParam> {
 		}
 	}
 	
-	public List<RequestParam> asList() {
+	public List<RequestParam> toList() {
 		return new LinkedList<>(internalMap.values());
 	}
 
@@ -58,5 +58,10 @@ public class OrderedParamSet implements Iterable<RequestParam> {
 				return internalMap.get(internalIterator.next());
 			}
 		};
+	}
+	
+	@Override
+	public String toString() {
+		return toList().toString();
 	}
 }

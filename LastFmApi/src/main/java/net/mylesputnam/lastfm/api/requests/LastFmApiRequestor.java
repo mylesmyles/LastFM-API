@@ -46,7 +46,7 @@ public class LastFmApiRequestor {
 	
 	private String makeRequest(LastFmRequest request) {
 		try {
-			URL requestUrl = new URL(request.getRequestUrl());
+			URL requestUrl = new URL(request.getUrl());
 			return getResponse(requestUrl);
 		}
 		catch(Exception e) {
