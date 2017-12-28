@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 
 class BasicLastFmRequest implements LastFmRequest {
 	private final String url;
-	private final List<RequestParam> requestParams;
+	private final List<LastFmParam> requestParams;
 	
-	public static BasicLastFmRequest create(String url, List<RequestParam> requestParams) {
+	public static BasicLastFmRequest create(String url, List<LastFmParam> requestParams) {
 		return new BasicLastFmRequest(url, requestParams);
 	}
 	
-	private BasicLastFmRequest(String url, List<RequestParam> requestParams) {
+	private BasicLastFmRequest(String url, List<LastFmParam> requestParams) {
 		this.url = url;
 		this.requestParams = new LinkedList<>(requestParams);
 	}
@@ -31,7 +31,7 @@ class BasicLastFmRequest implements LastFmRequest {
 		}
 	}
 	
-	private String getParamsAsString(List<RequestParam> params) {
+	private String getParamsAsString(List<LastFmParam> params) {
 		return String.join("&", params.stream().map(param -> param.getParamString())
 				.collect(Collectors.toList()));
 	}

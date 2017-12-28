@@ -1,34 +1,34 @@
 package net.mylesputnam.lastfm.api.requests;
 
-public final class RequestParam {
+public final class LastFmParam {
 	public final String key;
 	public final String value;
 	
-	public static RequestParam create(String key, String value) {
-		return new RequestParam(key, value);
+	public static LastFmParam create(String key, String value) {
+		return new LastFmParam(key, value);
 	}
 	
-	public static RequestParam apiKey(String apiKey) {
-		return RequestParam.create("api_key", apiKey);
+	public static LastFmParam apiKey(String apiKey) {
+		return LastFmParam.create("api_key", apiKey);
 	}
 	
-	public static RequestParam jsonFormat() {
-		return RequestParam.create("format", "json");
+	public static LastFmParam jsonFormat() {
+		return LastFmParam.create("format", "json");
 	}
 	
-	public static RequestParam jsonCallback(String callback) {
-		return RequestParam.create("callback", callback);
+	public static LastFmParam jsonCallback(String callback) {
+		return LastFmParam.create("callback", callback);
 	}
 	
-	public static RequestParam method(String method) {
-		return RequestParam.create("method", method);
+	public static LastFmParam method(String method) {
+		return LastFmParam.create("method", method);
 	}
 	
-	public static RequestParam artist(String artist) {
-		return RequestParam.create("artist", artist);
+	public static LastFmParam artist(String artist) {
+		return LastFmParam.create("artist", artist);
 	}
 	
-	private RequestParam(String key, String value) {
+	private LastFmParam(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}
@@ -59,7 +59,7 @@ public final class RequestParam {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RequestParam other = (RequestParam) obj;
+		LastFmParam other = (LastFmParam) obj;
 		if (key == null) {
 			if (other.key != null)
 				return false;

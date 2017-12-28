@@ -11,7 +11,7 @@ public class LastFmRequestBuilder {
 	private final OrderedParamSet defaultParams;
 	
 	public static LastFmRequestBuilder create(String apiKey) {
-		return new LastFmRequestBuilder(DEFAULT_URL, RequestParam.apiKey(apiKey));
+		return new LastFmRequestBuilder(DEFAULT_URL, LastFmParam.apiKey(apiKey));
 	}
 	
 	public LastFmRequestBuilder withUrl(String url) {
@@ -30,33 +30,33 @@ public class LastFmRequestBuilder {
 	}
 	
 	public LastFmRequestBuilder withMethod(String method) {
-		defaultParams.add(RequestParam.method(method));
+		defaultParams.add(LastFmParam.method(method));
 		return this;
 	}
 	
-	public LastFmRequestBuilder withDefaultParam(RequestParam defaultParam) {
+	public LastFmRequestBuilder withDefaultParam(LastFmParam defaultParam) {
 		defaultParams.add(defaultParam);
 		return this;
 	}
 	
-	private LastFmRequestBuilder(String url, RequestParam...defaultParams) {
+	private LastFmRequestBuilder(String url, LastFmParam...defaultParams) {
 		this.url = url;
 		this.isJsonFormat = false;
 		this.defaultParams = new OrderedParamSet(Arrays.asList(defaultParams));
 	}
 	
-	public LastFmRequest buildRequest(RequestParam...params) {
+	public LastFmRequest buildRequest(LastFmParam...params) {
 		return buildRequest(Arrays.asList(params));
 	}
 	
-	public LastFmRequest buildRequest(final List<RequestParam> params) {
+	public LastFmRequest buildRequest(final List<LastFmParam> params) {
 		OrderedParamSet paramSet = new OrderedParamSet(params);
 		if(isJsonFormat) {
-			paramSet.add(RequestParam.jsonFormat());
+			paramSet.add(LastFmParam.jsonFormat());
 		}
 		
 		OrderedParamSet combined = OrderedParamSet.combine(defaultParams, paramSet);
-		List<RequestParam> allParams = combined.toList();
+		List<LastFmParam> allParams = combined.toList();
 		return BasicLastFmRequest.create(url, allParams);
 	}
 }

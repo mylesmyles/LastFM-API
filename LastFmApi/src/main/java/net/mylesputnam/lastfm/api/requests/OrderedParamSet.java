@@ -6,8 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OrderedParamSet implements Iterable<RequestParam> {
-	private final LinkedHashMap<String, RequestParam> internalMap;
+public class OrderedParamSet implements Iterable<LastFmParam> {
+	private final LinkedHashMap<String, LastFmParam> internalMap;
 	
 	public static OrderedParamSet combine(OrderedParamSet defaultParams, OrderedParamSet overrideParams) {
 		OrderedParamSet combinedSets = new OrderedParamSet(defaultParams.toList());
@@ -19,42 +19,42 @@ public class OrderedParamSet implements Iterable<RequestParam> {
 		this.internalMap = new LinkedHashMap<>();
 	}
 	
-	public OrderedParamSet(Collection<RequestParam> params) {
+	public OrderedParamSet(Collection<LastFmParam> params) {
 		this();
 		this.addAll(params);
 	}
 	
-	public void add(RequestParam param) {
+	public void add(LastFmParam param) {
 		if(param != null) {
 			this.internalMap.put(param.key, param);
 		}
 	}
 	
-	public void addAll(Collection<RequestParam> params) {
+	public void addAll(Collection<LastFmParam> params) {
 		if(params == null) {
 			return;
 		}
 		
-		for(RequestParam param : params) {
+		for(LastFmParam param : params) {
 			this.add(param);
 		}
 	}
 	
-	public List<RequestParam> toList() {
+	public List<LastFmParam> toList() {
 		return new LinkedList<>(internalMap.values());
 	}
 
 	@Override
-	public Iterator<RequestParam> iterator() {
+	public Iterator<LastFmParam> iterator() {
 		final Iterator<String> internalIterator = internalMap.keySet().iterator();
-		return new Iterator<RequestParam>() {
+		return new Iterator<LastFmParam>() {
 			@Override
 			public boolean hasNext() {
 				return internalIterator.hasNext();
 			}
 
 			@Override
-			public RequestParam next() {
+			public LastFmParam next() {
 				return internalMap.get(internalIterator.next());
 			}
 		};

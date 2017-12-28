@@ -64,7 +64,7 @@ public class LastFmRequestBuilderTest {
 	public void testDefaultParam() {
 		LastFmRequestBuilder builder = LastFmRequestBuilder
 				.create("hi")
-				.withDefaultParam(RequestParam.artist("Yes"));
+				.withDefaultParam(LastFmParam.artist("Yes"));
 		
 		LastFmRequest request = builder.buildRequest();
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Yes", request.getUrl());
@@ -74,13 +74,13 @@ public class LastFmRequestBuilderTest {
 	public void testParamOrder() {
 		LastFmRequestBuilder builder = LastFmRequestBuilder
 				.create("hi")
-				.withDefaultParam(RequestParam.artist("Yes"))
+				.withDefaultParam(LastFmParam.artist("Yes"))
 				.withJsonFormat();
 		
 		LastFmRequest request = builder.buildRequest();
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Yes&format=json", request.getUrl());
 		
-		builder.withDefaultParam(RequestParam.artist("Rush"));
+		builder.withDefaultParam(LastFmParam.artist("Rush"));
 		request = builder.buildRequest();
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Rush&format=json", request.getUrl());
 	}
@@ -89,14 +89,14 @@ public class LastFmRequestBuilderTest {
 	public void testDefaultOverrides() {
 		LastFmRequestBuilder builder = LastFmRequestBuilder
 				.create("hi")
-				.withDefaultParam(RequestParam.artist("Yes"))
+				.withDefaultParam(LastFmParam.artist("Yes"))
 				.withMethod("have_fun");
 		
 		LastFmRequest request = builder.buildRequest();
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Yes&method=have_fun", request.getUrl());
 		
-		builder.withDefaultParam(RequestParam.artist("Rush"));
-		builder.withDefaultParam(RequestParam.create("user", "mylesmyles07"));
+		builder.withDefaultParam(LastFmParam.artist("Rush"));
+		builder.withDefaultParam(LastFmParam.create("user", "mylesmyles07"));
 		request = builder.buildRequest();
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Rush&method=have_fun&user=mylesmyles07", request.getUrl());
 	}
@@ -105,13 +105,13 @@ public class LastFmRequestBuilderTest {
 	public void testPassedInOverrides() {
 		LastFmRequestBuilder builder = LastFmRequestBuilder
 				.create("hi")
-				.withDefaultParam(RequestParam.artist("Yes"))
+				.withDefaultParam(LastFmParam.artist("Yes"))
 				.withMethod("have_fun");
 		
-		LastFmRequest request = builder.buildRequest(RequestParam.artist("Blur"));
+		LastFmRequest request = builder.buildRequest(LastFmParam.artist("Blur"));
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=hi&artist=Blur&method=have_fun", request.getUrl());
 		
-		request = builder.buildRequest(RequestParam.create("user", "mylesmyles07"), RequestParam.apiKey("bye"));
+		request = builder.buildRequest(LastFmParam.create("user", "mylesmyles07"), LastFmParam.apiKey("bye"));
 		Assert.assertEquals("http://ws.audioscrobbler.com/2.0/?api_key=bye&artist=Yes&method=have_fun&user=mylesmyles07", request.getUrl());
 	}
 	
@@ -119,11 +119,11 @@ public class LastFmRequestBuilderTest {
 	public void testParamsPassedInAsList() {
 		LastFmRequestBuilder builder = LastFmRequestBuilder
 				.create("hi")
-				.withDefaultParam(RequestParam.artist("Yes"))
+				.withDefaultParam(LastFmParam.artist("Yes"))
 				.withMethod("have_fun");
 		
-		LastFmRequest requestFromArray = builder.buildRequest(RequestParam.create("user", "mylesmyles07"), RequestParam.apiKey("bye"));
-		LastFmRequest requestFromList = builder.buildRequest(Arrays.asList(RequestParam.create("user", "mylesmyles07"), RequestParam.apiKey("bye")));
+		LastFmRequest requestFromArray = builder.buildRequest(LastFmParam.create("user", "mylesmyles07"), LastFmParam.apiKey("bye"));
+		LastFmRequest requestFromList = builder.buildRequest(Arrays.asList(LastFmParam.create("user", "mylesmyles07"), LastFmParam.apiKey("bye")));
 		Assert.assertEquals(requestFromArray.getUrl(), requestFromList.getUrl());
 	}
 }

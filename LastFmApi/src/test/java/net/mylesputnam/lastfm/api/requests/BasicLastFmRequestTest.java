@@ -20,7 +20,7 @@ public class BasicLastFmRequestTest {
 	public void testOneParam() {
 		BasicLastFmRequest request = BasicLastFmRequest.create(
 				"http://mylesputnam.net",
-				Arrays.asList(RequestParam.apiKey("hello")));
+				Arrays.asList(LastFmParam.apiKey("hello")));
 		Assert.assertEquals("http://mylesputnam.net?api_key=hello", request.getUrl());
 	}
 	
@@ -28,7 +28,7 @@ public class BasicLastFmRequestTest {
 	public void testMultipleParams() {
 		BasicLastFmRequest request = BasicLastFmRequest.create(
 				"http://mylesputnam.net",
-				Arrays.asList(RequestParam.artist("Yes"), RequestParam.jsonFormat()));
+				Arrays.asList(LastFmParam.artist("Yes"), LastFmParam.jsonFormat()));
 		Assert.assertEquals("http://mylesputnam.net?artist=Yes&format=json", request.getUrl());
 	}
 }
