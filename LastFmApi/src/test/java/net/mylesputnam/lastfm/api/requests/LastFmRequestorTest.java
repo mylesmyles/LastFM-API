@@ -66,8 +66,9 @@ public class LastFmRequestorTest {
 		LastFmApiRequestor requestor = createMockedRequestWithDelay(100);
 		LastFmRequest request = createGenericRequest();
 		long startTime = System.currentTimeMillis();
-		requestor.request(request);
+		String response = requestor.request(request);
 		assertTimeIsWithinMax(startTime, 10);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response);
 	}
 	
 	@Test
@@ -78,11 +79,14 @@ public class LastFmRequestorTest {
 		LastFmRequest requestSecond = createGenericRequest();
 		LastFmRequest requestThird = createGenericRequest();
 		long startTime = System.currentTimeMillis();
-		requestor.request(requestFirst);
-		requestor.request(requestSecond);
-		requestor.request(requestThird);
+		String response1 = requestor.request(requestFirst);
+		String response2 = requestor.request(requestSecond);
+		String response3 = requestor.request(requestThird);
 		assertTimeIsWithinMax(startTime, 220);
 		assertTimeIsAboveMin(startTime, 199);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response1);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response2);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response3);
 	}
 	
 	@Test
@@ -91,8 +95,9 @@ public class LastFmRequestorTest {
 		LastFmRequest request = createGenericRequest();
 		long startTime = System.currentTimeMillis();
 		Future<String> future = requestor.asyncRequest(request);
-		future.get();
+		String response = future.get();
 		assertTimeIsWithinMax(startTime, 10);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response);
 	}
 	
 	@Test
@@ -106,8 +111,9 @@ public class LastFmRequestorTest {
 		requestor.asyncRequest(requestFirst);
 		requestor.asyncRequest(requestSecond);
 		Future<String> future = requestor.asyncRequest(requestThird);
-		future.get();
+		String response = future.get();
 		assertTimeIsWithinMax(startTime, 220);
 		assertTimeIsAboveMin(startTime, 199);
+		Assert.assertEquals(FAKE_XML_RESPONSE, response);
 	}
 }
