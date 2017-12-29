@@ -11,7 +11,7 @@ class RequestScheduler {
 
 	private final LinkedBlockingQueue<CountDownLatch> requestQueue;
 	private final ScheduledExecutorService requestDelayThread;
-	private final long requestDelayMs;
+	final long requestDelayMs;
 	
 	public static RequestScheduler createWithDefaultRequestDelay() {
 		return new RequestScheduler(DEFAULT_REQUEST_DELAY_MS);

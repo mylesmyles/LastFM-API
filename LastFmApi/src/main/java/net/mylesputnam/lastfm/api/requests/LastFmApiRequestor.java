@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 import net.mylesputnam.lastfm.api.exceptions.LastFmApiException;
 
 public class LastFmApiRequestor {
-	private final RequestScheduler requestSpacer;
+	final RequestScheduler requestSpacer;
 	private final ExecutorService requestThreads;
 	
 	public static LastFmApiRequestor createWithDefaultRequestDelay() {
@@ -47,6 +47,7 @@ public class LastFmApiRequestor {
 	private String makeRequest(LastFmRequest request) {
 		try {
 			URL requestUrl = new URL(request.getUrl());
+			requestSpacer.reserveRequest();
 			return getResponse(requestUrl);
 		}
 		catch(Exception e) {
@@ -54,8 +55,7 @@ public class LastFmApiRequestor {
 		}
 	}
 	
-	private String getResponse(URL url) throws InterruptedException, IOException {
-		requestSpacer.reserveRequest();
+	String getResponse(URL url) throws InterruptedException, IOException {
 		URLConnection connection = url.openConnection();
 		InputStream response = connection.getInputStream();
 		BufferedReader responseReader = new BufferedReader(new InputStreamReader(response));
